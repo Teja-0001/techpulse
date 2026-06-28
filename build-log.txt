@@ -1,0 +1,31 @@
+
+> techpulse@0.1.0 build
+> next build
+
+ΓÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\Rahul Remo\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\Rahul Remo\teja.java\NEXT\techpulse\package-lock.json
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env
+
+ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 2.9s
+  Running TypeScript ...
+Failed to compile.
+
+./app/news/[id]/page.tsx:9:25
+Type error: Cannot find name 'getArticle'.
+
+   7 |
+   8 | export async function generateMetadata({ params }: Props) {
+>  9 |   const article = await getArticle(params.id);
+     |                         ^
+  10 |   return {
+  11 |     title: article?.title ?? "Article Not Found",
+  12 |     openGraph: { images: [article?.urlToImage] },
+Next.js build worker exited with code: 1 and signal: null

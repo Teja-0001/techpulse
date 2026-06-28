@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 
 // GET /api/bookmarks
 export async function GET(req: NextRequest) {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const bookmarks = await db.bookmark.findMany({
     where: { userId: session.user.id },
-    include: { article: true },
   });
 
   return NextResponse.json({ bookmarks });

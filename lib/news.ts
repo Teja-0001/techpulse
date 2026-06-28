@@ -9,20 +9,26 @@ export interface Article {
   content: string | null;
 }
 
-export async function getTopHeadlines() {
+interface NewsApiResponse {
+  articles: Article[];
+  totalResults: number;
+  status: string;
+}
+
+export async function getTopHeadlines(): Promise<NewsApiResponse> {
   const res = await fetch(
     `https://newsapi.org/v2/top-headlines?category=technology&pageSize=12&apiKey=${process.env.NEWS_API_KEY}`,
     { next: { revalidate: 3600 } },
   );
   if (!res.ok) throw new Error("Failed to fetch news");
-  return res.json();
+  return res.json() as Promise<NewsApiResponse>;
 }
 
-export async function searchArticles(query: string) {
+export async function searchArticles(query: string): Promise<NewsApiResponse> {
   const res = await fetch(
     `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=12&apiKey=${process.env.NEWS_API_KEY}`,
     { next: { revalidate: 600 } },
   );
   if (!res.ok) throw new Error("Failed to search articles");
-  return res.json();
+  return res.json() as Promise<NewsApiResponse>;
 }
